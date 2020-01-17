@@ -8,6 +8,7 @@ import Amplify from 'aws-amplify';
 import config from './config';
 
 Amplify.configure({
+    aws_appsync_authenticationType: 'AMAZON_COGNITO_USER_POOLS',
     Auth: {
         mandatorySignIn: true,
         region: config.cognito.REGION,
