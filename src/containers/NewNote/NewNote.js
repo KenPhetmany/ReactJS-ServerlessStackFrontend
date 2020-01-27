@@ -8,9 +8,6 @@ import { s3Upload } from "../../libs/awsLib";
 
 export default function NewNote(props) {
   const file = useRef(null);
-  const idtoken = async () => {
-    return (await Auth.currentSession()).idToken();
-  };
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -36,9 +33,7 @@ export default function NewNote(props) {
     setIsLoading(true);
 
     try {
-      const attachment = file.current ? await s3Upload(file.current) : null;
-
-      await createNote({ content, attachment });
+      await createNote({ content });
       props.history.push("/");
     } catch (e) {
       alert(e);
@@ -49,7 +44,7 @@ export default function NewNote(props) {
   function createNote(note) {
     return API.post("notes", "/notes", {
       body: note,
-      headers: { idtoken }
+      userid: 
     });
   }
   return (
